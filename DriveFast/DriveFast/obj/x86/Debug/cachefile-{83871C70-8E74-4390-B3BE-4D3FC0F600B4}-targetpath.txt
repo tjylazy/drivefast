@@ -3,3 +3,4 @@ Content\Images\Car.xnb
 Content\Images\Hazard.xnb
 Content\Images\Road.xnb
 Content\MyFont.xnb
+Content\Images\coin.xnb
