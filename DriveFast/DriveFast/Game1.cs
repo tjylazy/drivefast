@@ -19,12 +19,11 @@ namespace DriveFast
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
         private Texture2D mCar;
         private Texture2D mBackground;
         private Texture2D mRoad;
         private Texture2D mHazard;
-        private Texture2D mCoin;
-
 
         private KeyboardState mPreviousKeyboardState;
 
@@ -33,24 +32,20 @@ namespace DriveFast
         private int mVelocityY;
         private int levels;
         private double mNextHazardAppearsIn;
-        private double mNextCoinAppearsIn;
         private int mCarsRemaining;//剩余车辆
         private int mHazardsPassed;//经历障碍
-        private int mCoinAte; //@yang the total number of coin that ate 
         private int scores;
         private int mIncreaseVelocity;
         private double mExitCountDown = 10;//停止倒计时，10s
 
-
         private int[] mRoadY = new int[2];
         private List<Hazard> mHazards = new List<Hazard>();
-        private List<Coin> mCoins = new List<Coin>();//@author yang
 
         // 定义随机数 - 比方用来表示障碍物的位置
         private Random mRandom = new Random();
 
         private SpriteFont mFont;
-        GamePadState old_pad, new_pad;
+
         //----------------------- Feng ---------------------
         // 自定义枚举类型，表明不同的游戏状态
         private enum State
@@ -102,8 +97,6 @@ namespace DriveFast
             mBackground = Content.Load<Texture2D>("Images/Background");
             mRoad = Content.Load<Texture2D>("Images/Road");
             mHazard = Content.Load<Texture2D>("Images/Hazard");
-            //mHazard = Content.Load<Texture2D>("Images/coin");
-            mCoin = Content.Load<Texture2D>("Images/Coin");
 
             // 定义字体
             mFont = Content.Load<SpriteFont>("MyFont");
@@ -123,7 +116,6 @@ namespace DriveFast
             mRoadY[0] = 0;
             mRoadY[1] = -1 * mRoad.Height;
 
-            mCoinAte = 0;
             mHazardsPassed = 0;
             scores = 0;
             levels = 0;
@@ -144,8 +136,6 @@ namespace DriveFast
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            old_pad = new_pad;
-            new_pad = GamePad.GetState(PlayerIndex.One);
             KeyboardState aCurrentKeyboardState = Keyboard.GetState();//键盘状态
 
             //Allows the game to exit
@@ -155,7 +145,7 @@ namespace DriveFast
                 this.Exit();//ESC,XBOX back退出
             }
 
-            switch (mCurrentState)//
+            switch (mCurrentState)//状态机？
             {
                 case State.TitleScreen:
                 case State.Success:
@@ -163,8 +153,7 @@ namespace DriveFast
                     {
                         ExitCountdown(gameTime);//退出计时
 
-                        if ((aCurrentKeyboardState.IsKeyDown(Keys.Space) == true && mPreviousKeyboardState.IsKeyDown(Keys.Space) == false) ||
-                            GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+                        if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true && mPreviousKeyboardState.IsKeyDown(Keys.Space) == false)//按下space，Δ
                         {
                             StartGame();
                         }
@@ -174,20 +163,23 @@ namespace DriveFast
                 case State.Running:
                     {
                         //If the user has pressed the Spacebar, then make the car switch lanes
-                        GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
-                        if ((aCurrentKeyboardState.IsKeyDown(Keys.Right) == true && mPreviousKeyboardState.IsKeyDown(Keys.Right) == false) ||
-                            (old_pad.Buttons.B == ButtonState.Released && new_pad.Buttons.B == ButtonState.Pressed))
+                        /*if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true && mPreviousKeyboardState.IsKeyDown(Keys.Space) == false)
                         {
-                            if (mCarPosition.X <= 500)
-                                mCarPosition.X += mMoveCarX;
-                        }
-                        if ((aCurrentKeyboardState.IsKeyDown(Keys.Left) == true && mPreviousKeyboardState.IsKeyDown(Keys.Left) == false) ||
-                            (old_pad.Buttons.A == ButtonState.Released && new_pad.Buttons.A == ButtonState.Pressed))
+                            mCarPosition.X += mMoveCarX;
+                            mMoveCarX *= -1;
+                        }*/
+                        if (aCurrentKeyboardState.IsKeyDown(Keys.Left) == true && mPreviousKeyboardState.IsKeyDown(Keys.Left) == false)
                         {
-                            if (mCarPosition.X >= 150)
-                                mCarPosition.X -= mMoveCarX;
+                            if(mCarPosition.X > 230)
+                            mCarPosition.X -= mMoveCarX;
+                            //mMoveCarX *= -1;
                         }
-
+                        if (aCurrentKeyboardState.IsKeyDown(Keys.Right) == true && mPreviousKeyboardState.IsKeyDown(Keys.Right) == false)
+                        {
+                            if(mCarPosition.X < 560)
+                            mCarPosition.X += mMoveCarX;
+                            //mMoveCarX *= -1;
+                        }
                         ScrollRoad();
 
                         foreach (Hazard aHazard in mHazards)
@@ -200,30 +192,15 @@ namespace DriveFast
                             MoveHazard(aHazard);
                         }
 
-                        foreach (Coin aCoin in mCoins)
-                        {
-                            if (aCoin.Visible==true && CheckCollisionCoin(aCoin) == true)
-                            {
-                                aCoin.Visible = false;
-                                mCoinAte++;
-                                //scores += 10*levels;  // when you ate coin, add some scores 
-                                break;
-                            }
-                            MoveCoin(aCoin);
-                        }
-
                         UpdateHazards(gameTime);
-                        UpdateCoins(gameTime);// coin just like the hazards
                         break;
                     }
                 case State.Crash:
                     {
                         //If the user has pressed the Space key, then resume driving
-                        if ((aCurrentKeyboardState.IsKeyDown(Keys.Space) == true && mPreviousKeyboardState.IsKeyDown(Keys.Space) == false) ||
-                            GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+                        if (aCurrentKeyboardState.IsKeyDown(Keys.Space) == true && mPreviousKeyboardState.IsKeyDown(Keys.Space) == false)
                         {
                             mHazards.Clear();
-                            mCoins.Clear();///@yang  add something cleaning work here 
                             mCurrentState = State.Running;
                         }
 
@@ -271,7 +248,7 @@ namespace DriveFast
                 theHazard.Visible = false;
                 mHazardsPassed += 1;
                 scores = scores + 10 + mVelocityY;
-                if (mHazardsPassed >= 1000) // 如果通过100个障碍物，成功！
+                if (mHazardsPassed >= 100) // 如果通过100个障碍物，成功！
                 {
                     mCurrentState = State.Success;
                     mExitCountDown = 10;
@@ -285,16 +262,6 @@ namespace DriveFast
                     levels += 1;
                 }
                 
-            }
-        }
-
-        private void MoveCoin(Coin theCoin)
-        {
-            int magic = mRandom.Next(0,10);
-            theCoin.Position.Y += mVelocityY+ magic;
-            if (theCoin.Position.Y > graphics.GraphicsDevice.Viewport.Height && theCoin.Visible == true)
-            {
-                theCoin.Visible = false;
             }
         }
 
@@ -318,58 +285,20 @@ namespace DriveFast
             }
         }
 
-        //@author yang 
-        //just like the title, we update the coins apperance
-        private void UpdateCoins(GameTime theGameTime)
-        {
-            mNextCoinAppearsIn -= theGameTime.ElapsedGameTime.TotalSeconds; //1.5s刷一个障碍
-            if (mNextCoinAppearsIn < 0)//要出现的话
-            {
-                int aLowerBound = 24 - (mVelocityY * 2);
-                int aUpperBound = 30 - (mVelocityY * 2);
-
-                if (mVelocityY > 10)
-                {
-                    aLowerBound = 6;
-                    aUpperBound = 8;
-                }
-
-                // 控制障碍物出现的位置（随机）??是下一个出现的时间吧
-                mNextCoinAppearsIn = (double)mRandom.Next(aLowerBound, aUpperBound) / 10;//change 8 to annother 8
-                AddCoin();
-            }
-        }
-
         private void AddHazard()
         {
             int aRoadPosition = mRandom.Next(1, 5);//哪条道出障碍
             int aPosition = 10 + 140 * aRoadPosition;
-            ///@author yang to add another new hazard  
-            int bRoadPosition = mRandom.Next(4);
-            int bPosition = aPosition;
-            if (bRoadPosition != 0)
-            {
-                bPosition = 10 + 140 * ((bRoadPosition + aRoadPosition-1) % 4 +1 );
-            }
-            ///end of @author yang
+
+
             bool aAddNewHazard = true;
             foreach (Hazard aHazard in mHazards)
             {
-
-                int count = 0;//@author yang
                 if (aHazard.Visible == false)
                 {
-                    count++;//@author yang
-                    //aAddNewHazard = false;
+                    aAddNewHazard = false;
                     aHazard.Visible = true;
-                    if(count==1)
                     aHazard.Position = new Vector2(aPosition, -mHazard.Height);
-                    if (count == 2)
-                    {
-                        aAddNewHazard = false;
-                        aHazard.Position = new Vector2(bPosition, -mHazard.Height); break;
-                    }
-                    if (bPosition==0)//@author yang
                     break;
                 }
             }
@@ -381,44 +310,6 @@ namespace DriveFast
                 aHazard.Position = new Vector2(aPosition, -mHazard.Height);
 
                 mHazards.Add(aHazard);
-                //@author yang
-                if (bRoadPosition != 0)
-                {
-                    Hazard bHazard = new Hazard();
-                    bHazard.Position = new Vector2(bPosition, -mHazard.Height);
-                    mHazards.Add(bHazard);
-                }
-                //end of @author yang 
-            }
-        }
-        
-        //@author yang
-        // add coin into the list mCoins
-        private void AddCoin()
-        {
-            int aRoadPosition = mRandom.Next(1, 5);//哪条道出障碍
-            int aPosition = 30 + 140 * aRoadPosition;
-
-
-            bool aAddNewCoin = true;
-            foreach (Coin aCoin in mCoins)
-            {
-                if (aCoin.Visible == false)
-                {
-                    aAddNewCoin = false;
-                    aCoin.Visible = true;
-                    aCoin.Position = new Vector2(aPosition, -mCoin.Height);
-                    break;
-                }
-            }
-
-            if (aAddNewCoin == true)
-            {
-                //Add a hazard to the left side of the Road
-                Coin aCoin = new Coin();
-                aCoin.Position = new Vector2(aPosition, -mCoin.Height);
-
-                mCoins.Add(aCoin);
             }
         }
 
@@ -433,7 +324,6 @@ namespace DriveFast
             if (aHazardBox.Intersects(aCarBox) == true) // 碰上了吗?
             {
                 mCurrentState = State.Crash;
-
                 mCarsRemaining -= 1;
                 if (mCarsRemaining < 0)
                 {
@@ -446,23 +336,6 @@ namespace DriveFast
             return false;
         }
         //----------------------- Tian ------------------------------------------------------
-
-        //@author yang  
-        //detect the coin collision and and calculate the total coins we eat 
-        private bool CheckCollisionCoin(Coin theCoin)
-        {
-            // 分别计算并使用封闭（包裹）盒给障碍物和车
-            BoundingBox aCoinBox = new BoundingBox(new Vector3(theCoin.Position.X, theCoin.Position.Y, 0), new Vector3(theCoin.Position.X + (mHazard.Width * .4f), theCoin.Position.Y + ((mHazard.Height - 50) * .4f), 0));
-            BoundingBox aCarBox = new BoundingBox(new Vector3(mCarPosition.X, mCarPosition.Y, 0), new Vector3(mCarPosition.X + (mCar.Width * .2f), mCarPosition.Y + (mCar.Height * .2f), 0));
-
-            if (aCoinBox.Intersects(aCarBox) == true) // 碰上了吗?
-            {
-                //
-                return true;
-            }
-
-            return false;
-        }
 
         private void ExitCountdown(GameTime theGameTime)
         {
@@ -502,7 +375,7 @@ namespace DriveFast
                     {
                         DrawRoad();
                         DrawHazards();
-                        DrawCoins();
+
                         spriteBatch.Draw(mCar, mCarPosition, new Rectangle(0, 0, mCar.Width, mCar.Height), Color.White, 0, new Vector2(0, 0), 0.2f, SpriteEffects.None, 0);
 
                         spriteBatch.DrawString(mFont, "Cars:", new Vector2(28, 520), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
@@ -514,11 +387,6 @@ namespace DriveFast
                         spriteBatch.DrawString(mFont, "Hazards: " + mHazardsPassed.ToString(), new Vector2(5, 25), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);//过障碍数
                         spriteBatch.DrawString(mFont, "levels: " + levels.ToString(), new Vector2(5, 45), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);//过障碍数
                         spriteBatch.DrawString(mFont, "Scores: " + scores.ToString(), new Vector2(5, 65), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
-
-                        //@author yang
-                        spriteBatch.DrawString(mFont, "Coins: " + mCoinAte.ToString(), new Vector2(5, 85), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
-                        //end of @author yang
-                        
                         if (mCurrentState == State.Crash)//撞毁
                         {
                             DrawTextDisplayArea();
@@ -570,19 +438,6 @@ namespace DriveFast
                 if (aHazard.Visible == true)
                 {
                     spriteBatch.Draw(mHazard, aHazard.Position, new Rectangle(0, 0, mHazard.Width, mHazard.Height), Color.White, 0, new Vector2(0, 0), 0.4f, SpriteEffects.None, 0);
-                }
-            }
-        }
-
-        //@author yang
-        // draw the coins on screen
-        private void DrawCoins()
-        {
-            foreach (Coin aCoin in mCoins)
-            {
-                if (aCoin.Visible == true)
-                {
-                    spriteBatch.Draw(mCoin, aCoin.Position, new Rectangle(0, 0, mCoin.Width, mCoin.Height), Color.White, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
                 }
             }
         }
