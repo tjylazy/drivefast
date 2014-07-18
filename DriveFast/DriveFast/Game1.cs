@@ -38,6 +38,10 @@ namespace DriveFast
         private int mIncreaseVelocity;
         private double mExitCountDown = 10;//停止倒计时，10s
 
+        private Song bgm;
+        private SoundEffect crashsound;
+        bool mute = false;
+
         private int[] mRoadY = new int[2];
         private List<Hazard> mHazards = new List<Hazard>();
 
@@ -97,7 +101,8 @@ namespace DriveFast
             mBackground = Content.Load<Texture2D>("Images/Background");
             mRoad = Content.Load<Texture2D>("Images/Road");
             mHazard = Content.Load<Texture2D>("Images/Hazard");
-
+            bgm = Content.Load<Song>("Music/the ride");
+            crashsound = Content.Load<SoundEffect>("Music/Carcrash");
             // 定义字体
             mFont = Content.Load<SpriteFont>("MyFont");
         }
@@ -127,6 +132,8 @@ namespace DriveFast
             mHazards.Clear();
 
             mCurrentState = State.Running;
+            if(!mute)
+            MediaPlayer.Play(bgm);
         }
 
         /// <summary>
@@ -168,6 +175,12 @@ namespace DriveFast
                             mCarPosition.X += mMoveCarX;
                             mMoveCarX *= -1;
                         }*/
+                        if (MediaPlayer.State == MediaState.Stopped)
+                        {
+                            MediaPlayer.Play(bgm);
+                        }
+
+
                         if (aCurrentKeyboardState.IsKeyDown(Keys.Left) == true && mPreviousKeyboardState.IsKeyDown(Keys.Left) == false)
                         {
                             if(mCarPosition.X > 230)
@@ -180,6 +193,7 @@ namespace DriveFast
                             mCarPosition.X += mMoveCarX;
                             //mMoveCarX *= -1;
                         }
+
                         ScrollRoad();
 
                         foreach (Hazard aHazard in mHazards)
@@ -207,8 +221,20 @@ namespace DriveFast
                         break;
                     }
             }
-            mPreviousKeyboardState = aCurrentKeyboardState;//键盘状态更新
 
+            if (aCurrentKeyboardState.IsKeyDown(Keys.M) == true && mPreviousKeyboardState.IsKeyDown(Keys.M) == false && mute == false)
+            {
+                mute = true;
+                MediaPlayer.IsMuted = true;
+            }
+
+            else if (aCurrentKeyboardState.IsKeyDown(Keys.M) == true && mPreviousKeyboardState.IsKeyDown(Keys.M) == false && mute == true)
+            {
+                mute = false;
+                MediaPlayer.IsMuted = false;
+            }
+
+            mPreviousKeyboardState = aCurrentKeyboardState;//键盘状态更新
             base.Update(gameTime);
         }
 
@@ -324,6 +350,8 @@ namespace DriveFast
             if (aHazardBox.Intersects(aCarBox) == true) // 碰上了吗?
             {
                 mCurrentState = State.Crash;
+                if(!mute)
+                crashsound.Play();
                 mCarsRemaining -= 1;
                 if (mCarsRemaining < 0)
                 {
@@ -366,6 +394,8 @@ namespace DriveFast
                         //第二参数是Y轴
                         DrawTextCentered("Drive Fast And Avoid the Oncoming Obstacles", 200);
                         DrawTextCentered("Press 'Space' to begin", 260);
+                        DrawTextCentered("Press 'Left' and 'Right' to control your car", 300);
+                        DrawTextCentered("Press 'M' to mute", 340);
                         DrawTextCentered("Exit in " + ((int)mExitCountDown).ToString(), 475);
 
                         break;
@@ -387,6 +417,7 @@ namespace DriveFast
                         spriteBatch.DrawString(mFont, "Hazards: " + mHazardsPassed.ToString(), new Vector2(5, 25), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);//过障碍数
                         spriteBatch.DrawString(mFont, "levels: " + levels.ToString(), new Vector2(5, 45), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);//过障碍数
                         spriteBatch.DrawString(mFont, "Scores: " + scores.ToString(), new Vector2(5, 65), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
+                        spriteBatch.DrawString(mFont, "Mute: " + mute.ToString(), new Vector2(5, 85), Color.Brown, 0, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
                         if (mCurrentState == State.Crash)//撞毁
                         {
                             DrawTextDisplayArea();

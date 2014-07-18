@@ -46,6 +46,25 @@
       <Output>C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\MyFont.xnb</Output>
       <Time>2011-02-20T16:01:54+08:00</Time>
     </Item>
+    <Item>
+      <Source>Music\the ride.mp3</Source>
+      <Name>Music\the ride</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.xnb</Output>
+      <Extra>C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.wma</Extra>
+      <Time>2014-07-18T13:05:38.918437+08:00</Time>
+    </Item>
+    <Item>
+      <Source>Music\Carcrash.WAV</Source>
+      <Name>Music\Carcrash</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\Carcrash.xnb</Output>
+      <Time>2014-07-18T13:06:15.1425089+08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

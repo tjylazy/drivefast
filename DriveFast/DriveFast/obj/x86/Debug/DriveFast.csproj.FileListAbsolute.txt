@@ -20,3 +20,6 @@ C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\obj\x86\D
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\obj\x86\Debug\DriveFast.exe
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\obj\x86\Debug\DriveFast.pdb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\Carcrash.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.wma
