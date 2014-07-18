@@ -23,3 +23,12 @@ C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\obj\x86\D
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.xnb
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\Carcrash.xnb
 C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\the ride.wma
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Coin.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Music\coinsound.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_grey.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_red.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_yellow.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\background2.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_red_2.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_yellow_2.xnb
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\car_grey_2.xnb

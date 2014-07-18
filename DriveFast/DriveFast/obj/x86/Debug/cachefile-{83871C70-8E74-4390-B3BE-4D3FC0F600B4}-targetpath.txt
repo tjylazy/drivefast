@@ -6,3 +6,12 @@ Content\MyFont.xnb
 Content\Music\the ride.xnb
 Content\Music\the ride.wma
 Content\Music\Carcrash.xnb
+Content\Images\Coin.xnb
+Content\Music\coinsound.xnb
+Content\Images\car_grey.xnb
+Content\Images\car_red.xnb
+Content\Images\car_yellow.xnb
+Content\Images\background2.xnb
+Content\Images\car_red_2.xnb
+Content\Images\car_yellow_2.xnb
+Content\Images\car_grey_2.xnb
