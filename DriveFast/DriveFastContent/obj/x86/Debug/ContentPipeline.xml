@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Background.xnb</Output>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Background.xnb</Output>
       <Time>2011-02-20T16:01:48+08:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Car.xnb</Output>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Car.xnb</Output>
       <Time>2011-02-20T16:01:48+08:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Hazard.xnb</Output>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Hazard.xnb</Output>
       <Time>2014-07-18T09:31:22.1660871+08:00</Time>
     </Item>
     <Item>
@@ -34,8 +34,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Road.xnb</Output>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Road.xnb</Output>
       <Time>2014-07-17T15:39:27.3334476+08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\Coin.png</Source>
+      <Name>Images\Coin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\Images\Coin.xnb</Output>
+      <Time>2014-07-17T20:16:30.4784608+08:00</Time>
     </Item>
     <Item>
       <Source>MyFont.spritefont</Source>
@@ -43,17 +52,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\MyFont.xnb</Output>
+      <Output>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\MyFont.xnb</Output>
       <Time>2011-02-20T16:01:54+08:00</Time>
-    </Item>
-    <Item>
-      <Source>Images\coin.png</Source>
-      <Name>Images\coin</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\Images\coin.xnb</Output>
-      <Time>2014-07-17T20:16:30.4784608+08:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -61,10 +61,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>E:\1Projects\game\DriveFast1\DriveFast\DriveFastContent\</RootDirectory>
-      <LoggerRootDirectory>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\</LoggerRootDirectory>
-      <IntermediateDirectory>E:\1Projects\game\DriveFast1\DriveFast\DriveFastContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>E:\1Projects\game\DriveFast1\DriveFast\DriveFast\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\1Projects\Github\drivefast\DriveFast\DriveFastContent\</RootDirectory>
+      <LoggerRootDirectory>E:\1Projects\Github\drivefast\DriveFast\DriveFast\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\1Projects\Github\drivefast\DriveFast\DriveFastContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\1Projects\Github\drivefast\DriveFast\DriveFast\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

@@ -128,7 +128,7 @@ namespace DriveFast
             scores = 0;
             levels = 0;
             mCarsRemaining = 3; // 所剩车辆的数量
-            mVelocityY = 13;//向下滚动的速度
+            mVelocityY = 3;//向下滚动的速度
             mNextHazardAppearsIn = 1.5;//下一个障碍时间
             mIncreaseVelocity = 5;  // 速度增加的速度，单位为障碍数
 
