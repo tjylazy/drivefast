@@ -1,0 +1,2 @@
+E:\Dropbox\哈工大上课\Labs\DriveFast\DriveFast\DriveFastContent\obj\x86\Debug\DriveFastContent.contentprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\DriveFast\DriveFast\DriveFast\DriveFastContent\obj\x86\Debug\ResolveAssemblyReference.cache
