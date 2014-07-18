@@ -2,4 +2,5 @@ Content\Images\Background.xnb
 Content\Images\Car.xnb
 Content\Images\Hazard.xnb
 Content\Images\Road.xnb
+Content\Images\Coin.xnb
 Content\MyFont.xnb
